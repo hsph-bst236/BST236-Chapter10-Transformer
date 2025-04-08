@@ -334,7 +334,7 @@ prompt = "Once upon a time"
 tokenized_prompt = tokenizer(prompt, return_tensors="pt")
 
 for i in range(10):
-    output = gpt2.generate(**tokenized_prompt,
+    output = model.generate(**tokenized_prompt,
                   max_length=50,
                   do_sample=True,
                   top_p=0.9)
@@ -343,4 +343,18 @@ for i in range(10):
 
 
 
-# %%
+# %% Pipeline
+from transformers import pipeline
+
+classifier = pipeline("sentiment-analysis")
+
+classifier("I've been waiting for a Hugging Face course my whole life.")
+
+#%%
+generator = pipeline("text-generation")
+
+result = generator("Hello, I've been")
+
+# %% Use the DistilBERT model for sentiment analysis
+
+classifier = pipeline("sentiment-analysis", model="")
